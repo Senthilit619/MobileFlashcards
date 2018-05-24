@@ -11,3 +11,16 @@ export function getDecks(){
 		return data;
 	})
 }
+export function getDecks () { return AsyncStorage.getItem('deck',(result)=>{}) }
+
+export function getDeck (id) { return AsyncStorage.getItem('deck') .then((results) => { const data = JSON.parse(results) const deck = data[id] return deck }) }
+
+export function saveDeckTitle(title){ return AsyncStorage.mergeItem('deck', JSON.stringify({
+
+    [title]: {name:title,questions:[]}
+}))
+}
+
+export function addCardToDeck(title, card){ return AsyncStorage.getItem('deck') .then((results) => { const data = JSON.parse(results) const deck = data[title] deck.questions.push(card) AsyncStorage.setItem('deck', JSON.stringify(data)) }) }
+
+export function clearAll(){ return AsyncStorage.clear() }
