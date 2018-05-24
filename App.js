@@ -119,11 +119,19 @@ export default class App extends React.Component {
       }
     }
   }  
-  componentWillMount(){
+  async componentWillMount(){
     console.log(this.state);
+    await AsyncStorage.setItem("decks",JSON.stringify(this.state.decks),function(){
+      console.log("set decks");
+    });
   }
-  render() {
-    
+  async componentDidMount(){
+    const decks = await AsyncStorage.getItem("decks",function(){
+      console.log("getting decks");
+    })
+    console.log(decks);
+  }
+  render() {    
     return (
       <View style={styles.container}>                                
         <MainNavigator style={{flex:1}} screenProps={this.state.decks}/>       
